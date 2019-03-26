@@ -1,0 +1,26 @@
+  if(cmd === `${prefix}report`){
+
+    //!report @ned this is the reason
+
+    let rUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+    if(!rUser) return message.channel.send("Usuario não encontrado. Tente rever sua escrita :o.");
+    let rreason = args.join(" ").slice(22);
+
+    let reportEmbed = new Discord.RichEmbed()
+    .setDescription("Reports")
+    .setColor("#15f153")
+    .addField("Usuário reportado", `${rUser} with ID: ${rUser.id}`)
+    .addField("Reportado por", `${message.author} with ID: ${message.author.id}`)
+    .addField("Canal", message.channel)
+    .addField("Data", message.createdAt)
+    .addField("Motivo", rreason);
+
+    let reportschannel = message.guild.channels.find(`name`, "reports");
+    if(!reportschannel) return message.channel.send("Canal de reports não encontrado, crie um agora!");
+
+
+    message.delete().catch(O_o=>{});
+    reportschannel.send(reportEmbed);
+
+    return;
+  }
